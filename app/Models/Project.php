@@ -20,4 +20,5 @@ class Project extends Model
     {
         return $this->belongsToMany(Category::class, 'project_category');
     }
+    
 }

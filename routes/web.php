@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MyworkController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\WebSettingsController;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', HomeController::class)->name('home');
 Route::get('/about-me', AboutController::class)->name('about-me');
+Route::get('/my-works', [MyworkController::class, 'myWorks'])->name('my-works');
 
 
-Route::get('/my-works', function () {
-    return view('frontend.project.my-works');
-})->name('my-works');
 
 Route::get('/detail-project', function () {
     return view('frontend.detail-project.detail-project');

@@ -16,104 +16,178 @@
     </div>
 </div>
 
+@php
+$count = $projects->count();
+$chunks = $projects->slice(8)->values();
+@endphp
+
 <!-- Grid Project Gallery -->
+@if($count > 0)
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6">
-    <!-- Project Items 1-3 -->
+    @foreach($projects->take(3) as $project)
     <div class="hover:scale-105 transition overflow-hidden rounded-2xl">
         <div class="w-full h-[200px] md:h-[350px]">
-            <img src="{{ asset('assets/image/example_profile_picture.png') }}" alt="Orbitlustry" class="w-full h-full object-cover rounded-b-2xl" />
+            <img src="{{ $project->image ? asset('storage/' . $project->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $project->title }}" class="w-full h-full object-cover rounded-b-2xl" />
         </div>
         <div class="p-3 md:p-4 text-center">
-            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Lori</p>
-            <h3 class="font-syne text-base md:text-2xl font-bold">Orbitlustry</h3>
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $project->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $project->title }}</h3>
         </div>
     </div>
-
-    <div class="hover:scale-105 transition overflow-hidden rounded-2xl">
-        <div class="w-full h-[200px] md:h-[350px]">
-            <img src="{{ asset('assets/image/example_project2_pict.png') }}" alt="Orbitlustry" class="w-full h-full object-cover rounded-b-2xl" />
-        </div>
-        <div class="p-3 md:p-4 text-center">
-            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Lori</p>
-            <h3 class="font-syne text-base md:text-2xl font-bold">Orbitlustry</h3>
-        </div>
-    </div>
-
-    <div class="hover:scale-105 transition overflow-hidden rounded-2xl">
-        <div class="w-full h-[200px] md:h-[350px]">
-            <img src="{{ asset('assets/image/example_profile_picture.png') }}" alt="Remophonic" class="w-full h-full object-cover rounded-b-2xl" />
-        </div>
-        <div class="p-3 md:p-4 text-center">
-            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Zonie</p>
-            <h3 class="font-syne text-base md:text-2xl font-bold">Remophonic</h3>
-        </div>
-    </div>
+    @endforeach
 </div>
+@endif
 
-<!-- Project Items 4-6 -->
+@if($count > 3)
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6">
-    <!-- Large Left Item -->
     <div class="md:col-span-2">
-        <div class="hover:scale-105 transition">
-            <div class="w-full h-[250px] md:h-[600px]"> <!-- Changed mobile height to match first gallery -->
-                <img src="{{ asset('assets/image/example_project1_pict.png') }}" alt="Dektoloyal"
-                    class="w-full h-full object-cover rounded-2xl">
+        @if($projects->get(3))
+        <div class="hover:scale-105 transition bg-red-600">
+            <div class="w-full h-[250px] md:h-[600px]">
+                <img src="{{ $projects->get(3)->image ? asset('storage/' . $projects->get(3)->image) : asset('assets/image/example_project1_pict.png') }}" alt="{{ $projects->get(3)->title }}" class="w-full h-full object-cover rounded-2xl">
             </div>
             <div class="p-3 md:p-4 text-center">
-                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Lana</p>
-                <h3 class="font-syne text-base md:text-2xl font-bold">Dektoloyal</h3>
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $projects->get(3)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $projects->get(3)->title }}</h3>
             </div>
         </div>
+        @endif
     </div>
 
-    <!-- Right Column (2 smaller items) -->
-    <div class="md:col-span-2 space-y-4 md:space-y-6">
-        <!-- Top Right Item -->
-        <div class="hover:scale-105 transition">
-            <div class="w-full h-[250px] md:h-[260px]"> <!-- Changed mobile height to match first gallery -->
-                <img src="{{ asset('assets/image/example_profile_picture.png') }}" alt="Backriptograph"
-                    class="w-full h-full object-cover rounded-2xl">
-            </div>
-            <div class="p-3 md:p-0  text-center">
-                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Henrick</p>
-                <h3 class="font-syne text-base md:text-2xl font-bold">Backriptograph</h3>
-            </div>
-        </div>
+    <!-- bagian kolom kanan atas bawah -->
 
-        <!-- Bottom Right Item -->
-        <div class="hover:scale-105 transition">
-            <div class="w-full h-[250px] md:h-[260px]"> <!-- Changed mobile height to match first gallery -->
-                <img src="{{ asset('assets/image/example_project3_pict.png') }}" alt="Fletheristal"
-                    class="w-full h-full object-cover rounded-2xl">
+    <div class="md:col-span-2 space-y-4 md:space-y-0">
+        @if($projects->get(4))
+        <div class="hover:scale-105 transition bg-red-600 ">
+            <div class="w-full h-[250px] md:h-[273px] pb-4">
+                <img src="{{ $projects->get(4)->image ? asset('storage/' . $projects->get(4)->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $projects->get(4)->title }}" class="w-full h-full object-cover rounded-2xl">
             </div>
-            <div class="p-3 md:p-0 text-center">
-                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Tomo</p>
-                <h3 class="font-syne text-base md:text-2xl font-bold">Fletheristal</h3>
+            <div class="pb-4 md:pb-4 text-center">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $projects->get(4)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $projects->get(4)->title }}</h3>
             </div>
         </div>
+        @endif
+        @if($projects->get(5))
+        <div class="hover:scale-105 transition bg-red-600">
+            <div class="w-full h-[250px] md:h-[273px] pb-4">
+                <img src="{{ $projects->get(5)->image ? asset('storage/' . $projects->get(5)->image) : asset('assets/image/example_project3_pict.png') }}" alt="{{ $projects->get(5)->title }}" class="w-full h-full object-cover rounded-2xl">
+            </div>
+            <div class="pb-4 md:pb-4 text-center">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $projects->get(5)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $projects->get(5)->title }}</h3>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
+@endif
 
-<!-- Project Items 7-8 -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6 pb-20">
+@if($count > 6)
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6">
     <div class="md:col-span-2 hover:scale-105 transition">
+        @if($projects->get(6))
         <div class="w-full h-[250px] md:h-[500px]">
-            <img src="{{ asset('assets/image/example_profile_picture.png') }}" alt="South Adienne" class="w-full h-full object-cover rounded-2xl">
+            <img src="{{ $projects->get(6)->image ? asset('storage/' . $projects->get(6)->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $projects->get(6)->title }}" class="w-full h-full object-cover rounded-2xl">
         </div>
         <div class="p-3 md:p-4 text-center">
-            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Mikel</p>
-            <h3 class="font-syne text-base md:text-2xl font-bold">South Adienne</h3>
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $projects->get(6)->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $projects->get(6)->title }}</h3>
         </div>
+        @endif
     </div>
-
     <div class="md:col-span-2 hover:scale-105 transition">
+        @if($projects->get(7))
         <div class="w-full h-[250px] md:h-[500px] rounded-2xl">
-            <img src="{{ asset('assets/image/example_project3_pict.png') }}" alt="Lake Theor" class="w-full h-full object-cover rounded-2xl">
+            <img src="{{ $projects->get(7)->image ? asset('storage/' . $projects->get(7)->image) : asset('assets/image/example_project3_pict.png') }}" alt="{{ $projects->get(7)->title }}" class="w-full h-full object-cover rounded-2xl">
         </div>
         <div class="p-3 md:p-4 text-center">
-            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">Monda</p>
-            <h3 class="font-syne text-base md:text-2xl font-bold">Lake Theor</h3>
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $projects->get(7)->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $projects->get(7)->title }}</h3>
         </div>
+        @endif
     </div>
 </div>
+@endif
+
+@if($count > 8)
+@foreach($chunks->chunk(8) as $chunk)
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6">
+    @foreach($chunk->take(3) as $project)
+    <div class="hover:scale-105 transition overflow-hidden rounded-2xl">
+        <div class="w-full h-[200px] md:h-[350px]">
+            <img src="{{ $project->image ? asset('storage/' . $project->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $project->title }}" class="w-full h-full object-cover rounded-b-2xl" />
+        </div>
+        <div class="p-3 md:p-4 text-center">
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $project->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $project->title }}</h3>
+        </div>
+    </div>
+    @endforeach
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6">
+    <div class="md:col-span-2">
+        @if($chunk->get(3))
+        <div class="hover:scale-105 transition bg-red-600">
+            <div class="w-full h-[250px] md:h-[600px]">
+                <img src="{{ $chunk->get(3)->image ? asset('storage/' . $chunk->get(3)->image) : asset('assets/image/example_project1_pict.png') }}" alt="{{ $chunk->get(3)->title }}" class="w-full h-full object-cover rounded-2xl">
+            </div>
+            <div class="p-3 md:p-4 text-center">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $chunk->get(3)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $chunk->get(3)->title }}</h3>
+            </div>
+        </div>
+        @endif
+    </div>
+    <div class="md:col-span-2 space-y-4 md:space-y-0">
+        @if($chunk->get(4))
+        <div class="hover:scale-105 transition bg-red-600">
+            <div class="w-full h-[250px] md:h-[273px] pb-4 ">
+                <img src="{{ $chunk->get(4)->image ? asset('storage/' . $chunk->get(4)->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $chunk->get(4)->title }}" class="w-full h-full object-cover rounded-2xl">
+            </div>
+            <div class="pb-4 md:pb-4 text-center">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $chunk->get(4)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $chunk->get(4)->title }}</h3>
+            </div>
+        </div>
+        @endif
+        @if($chunk->get(5))
+        <div class="hover:scale-105 transition bg-red-600">
+            <div class="w-full h-[250px] md:h-[273px] pb-4 ">
+                <img src="{{ $chunk->get(5)->image ? asset('storage/' . $chunk->get(5)->image) : asset('assets/image/example_project3_pict.png') }}" alt="{{ $chunk->get(5)->title }}" class="w-full h-full object-cover rounded-2xl">
+            </div>
+            <div class="pb-4 md:pb-4 text-center">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $chunk->get(5)->client }}</p>
+                <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $chunk->get(5)->title }}</h3>
+            </div>
+        </div>
+        @endif
+    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mt-4 md:mt-6">
+    <div class="md:col-span-2 hover:scale-105 transition">
+        @if($chunk->get(6))
+        <div class="w-full h-[250px] md:h-[500px]">
+            <img src="{{ $chunk->get(6)->image ? asset('storage/' . $chunk->get(6)->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $chunk->get(6)->title }}" class="w-full h-full object-cover rounded-2xl">
+        </div>
+        <div class="p-3 md:p-4 text-center">
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $chunk->get(6)->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $chunk->get(6)->title }}</h3>
+        </div>
+        @endif
+    </div>
+    <div class="md:col-span-2 hover:scale-105 transition">
+        @if($chunk->get(7))
+        <div class="w-full h-[250px] md:h-[500px] rounded-2xl">
+            <img src="{{ $chunk->get(7)->image ? asset('storage/' . $chunk->get(7)->image) : asset('assets/image/example_project3_pict.png') }}" alt="{{ $chunk->get(7)->title }}" class="w-full h-full object-cover rounded-2xl">
+        </div>
+        <div class="p-3 md:p-4 text-center">
+            <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $chunk->get(7)->client }}</p>
+            <h3 class="font-syne text-base md:text-2xl text-gray-400 font-bold">{{ $chunk->get(7)->title }}</h3>
+        </div>
+        @endif
+    </div>
+</div>
+@endforeach
+@endif
 @endsection
