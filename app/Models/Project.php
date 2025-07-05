@@ -20,5 +20,11 @@ class Project extends Model
     {
         return $this->belongsToMany(Category::class, 'project_category');
     }
-    
+
+    // app/Models/Project.php
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

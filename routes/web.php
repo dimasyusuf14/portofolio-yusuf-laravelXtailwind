@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', HomeController::class)->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-me', AboutController::class)->name('about-me');
 Route::get('/my-works', [MyworkController::class, 'myWorks'])->name('my-works');
 

@@ -26,28 +26,28 @@ $index = 0;
 $projectsArr = $projects->all();
 while ($index < count($projectsArr)) {
     foreach ($pattern as $take) {
-        if ($index >= count($projectsArr)) break;
-        $rows[] = array_slice($projectsArr, $index, $take);
-        $index += $take;
+    if ($index>= count($projectsArr)) break;
+    $rows[] = array_slice($projectsArr, $index, $take);
+    $index += $take;
     }
-}
-@endphp
+    }
+    @endphp
 
-<!-- Grid Project Gallery -->
-@foreach($rows as $row)
+    <!-- Grid Project Gallery -->
+    @foreach($rows as $row)
     <div class="grid grid-cols-1 md:grid-cols-{{ count($row) }} gap-4 md:gap-6 max-w-6xl mx-auto px-4 md:px-6 mb-6 pb-10">
         @foreach($row as $project)
-            <div class="flex flex-col items-center">
-                <div class="w-full h-[220px] md:h-[350px] flex items-center justify-center">
-                    <img src="{{ $project->image ? asset('storage/' . $project->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $project->title }}" class="w-full h-full object-cover rounded-2xl" />
-                </div>
-                <div class="flex flex-col items-center mt-2">
-                    <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1">{{ $project->client }}</p>
-                    <h3 class="font-syne text-base md:text-xl font-bold text-white">{{ $project->title }}</h3>
-                </div>
+        <div class="flex flex-col items-center">
+            <div class="w-full h-[220px] md:h-[350px] flex items-center justify-center">
+                <img src="{{ $project->image ? asset('storage/' . $project->image) : asset('assets/image/example_profile_picture.png') }}" alt="{{ $project->title }}" class="w-full h-full object-cover rounded-2xl" />
             </div>
+            <div class="flex flex-col items-center mt-2">
+                <p class="font-rubik text-xs md:text-sm text-gray-400 mt-1 capitalize">{{ $project->client }}</p>
+                <h3 class="font-syne text-base md:text-xl font-bold text-white capitalize">{{ $project->title }}</h3>
+            </div>
+        </div>
         @endforeach
     </div>
-@endforeach
+    @endforeach
 
-@endsection
+    @endsection

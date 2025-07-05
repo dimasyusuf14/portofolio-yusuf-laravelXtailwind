@@ -68,18 +68,32 @@
 <!-- Project Grid -->
 <div class="flex justify-center items-start py-10 px-4 pb-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl w-full mx-auto">
-        @foreach ([1,2,3,4] as $item)
-        <a class="flex flex-col items-start hover:bg-gray-400/10 p-2 rounded-2xl transition-colors duration-300 group" href="{{ route('detail-project') }}">
+        @foreach ($projectsHighlight as $project)
+        <a class="flex flex-col items-start hover:bg-gray-400/10 p-2 rounded-2xl transition-colors duration-300 group" href="{{ route('detail-project', $project->id) }}">
             <div class="rounded-2xl overflow-hidden w-full aspect-[4/3] bg-gray-800">
-                <img src="assets/image/example_project{{ $item }}_pict.png" alt="Project Image" class="w-full h-full object-cover sm:grayscale group-hover:grayscale-0 transition-all duration-500" />
+                <img src="{{ $project->image ? asset('storage/' . $project->image) : asset('assets/image/example_project1_pict.png') }}" alt="Project Image" class="w-full h-full object-cover sm:grayscale group-hover:grayscale-0 transition-all duration-500" />
             </div>
             <div class="flex items-center mb-2 mt-4">
-                <h2 class="font-syne text-xl font-semibold text-white mr-4">Brand Journey Improvements</h2>
+                <h2 class="font-syne text-xl font-semibold text-white mr-4 capitalize" >{{ $project->title }}</h2>
                 <div class="w-1 h-6 bg-orange-500 rounded"></div>
             </div>
             <div class="text-sm text-gray-400 space-y-1 w-full">
-                <div class="flex"><span class="w-16 font-rubik">Client:</span><span class="text-white font-rubik">Organc</span></div>
-                <div class="flex"><span class="w-16 font-rubik">Work:</span><span class="text-white flex gap-4 font-rubik">Branding <span>Logo design</span></span></div>
+                <div class="flex"><span class="w-16 font-rubik">Client:</span>
+                    <span class="text-white font-rubik capitalize">{{ $project->client }}
+                    </span>
+                </div>
+                <div class="flex">
+                    <span class="w-16 font-rubik">Work:</span>
+                    <span class="text-white flex flex-wrap font-rubik">
+                        @forelse ($project->categories as $category)
+                        <span class="mr-8">{{ $category->name }}</span>
+                        @empty
+                        -
+                        @endforelse
+                    </span>
+                </div>
+
+
             </div>
         </a>
         @endforeach
